@@ -1,14 +1,4 @@
-# Site settings
-title: Tech
-email: kkw0528@naver.com
-description: > # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://yourdomain.com" # the base hostname & protocol for your site
-twitter_username: kkw0528
-github_username:  keonwookim
-
-# Build settings
-markdown: rdiscount
+pygments: true
+permalink: /post/:title
+exclude: ['Gemfile','Gemfile.lock','Rakefile','.git']
+paginate: 4
