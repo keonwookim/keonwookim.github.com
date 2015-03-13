@@ -1,32 +1,14 @@
-#Exemplar
+# Type Theme
 
-This is my jekyll site template. Used for blog and project pages.
+![Default Type Theme blog](https://cloud.githubusercontent.com/assets/816965/5142407/19742e48-71d6-11e4-8d9d-fdfe010784f0.png)
 
-#Getting Started
+A free and open-source [Jekyll](http://jekyllrb.com) theme. Great for blogs and easy to customize.
 
-First, make sure you have the `jekyll` and `sass` gems installed. In your terminal run:
+## Get Started
 
-    gem install jekyll
-    gem install sass
+[Demo](https://rohanchandra.github.io/type-theme/)
 
-You can optionally install the *bourbon* gem in order to update the Bourbon folder:
+[Using Type](https://rohanchandra.github.io/project/type/)
 
-    gem install bourbon
-    cd _sass
-    bourbon install
-
-Start running Jekyll (defaults to port 4000) and watching Sass:
-
-    rake // 'rake watch' also works
-
-Before deploying your site, stop `rake watch` and run `rake generate` to generate a production-ready site (no Scss comments).
-
-## Updating Bourbon
-
-In order to update the Bourbon folder:
-
-    cd _sass/
-    bourbon update
-    
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/tybenz/exemplar/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+## License
+The MIT License (MIT)
