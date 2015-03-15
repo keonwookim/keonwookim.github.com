@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Tech blog
-permalink: /about/
+permalink: 
 feature-img: "img/sample_feature_img_2.png"
 ---
 
