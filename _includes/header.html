@@ -1,34 +1,72 @@
-<header class="site-header">
-
-	<div class="branding">
-		{% if site.theme.gravatar %}
-		<a href="{{ site.baseurl }}/">
-			<img class="avatar" src="https://secure.gravatar.com/avatar/{{ site.theme.gravatar }}?s=100" alt=""/>
-		</a>
-		{% elsif site.theme.avatar %}
-		<a href="{{ site.baseurl }}/">
-			<img class="avatar" src="/img/{{ site.theme.avatar }}" alt=""/>
-		</a>
-		{% endif %}
-		
-		<h1 class="site-title">
-			<a href="{{ site.baseurl }}/">{{ site.theme.title }}</a>
-		</h1>
-	</div>
-	
-	<nav class="site-nav">
-		<ul>
-			{% for page in site.pages %}
-				{% if page.title and page.hide != true %}
-				<li>
-					<a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
-				</li>
-				{% endif %}
-			{% endfor %}
-
-			<!-- Social icons from Font Awesome, if enabled -->
-			{% include icons.html %}
-		</ul>
-	</nav>
-	
+<header>
+    <div class="container">
+        <div class="profile">
+            <div class="social">
+                <a href="http://twitter.com/tybenz">
+                    <div data-picture data-alt="Twitter">
+                        <div data-src="/exemplar/img/twitter16.png"></div>
+                        <div data-src="/exemplar/img/twitter32.png"     data-media="(-webkit-min-device-pixel-ratio: 2)"></div>
+                        <noscript><img src="/exemplar/img/twitter16.png" alt="Twitter"></noscript>
+                    </div>
+                </a>
+                <a href="http://github.com/tybenz">
+                    <div data-picture data-alt="Github">
+                        <div data-src="/exemplar/img/octocat16.png"></div>
+                        <div data-src="/exemplar/img/octocat32.png"     data-media="(-webkit-min-device-pixel-ratio: 2)"></div>
+                        <noscript><img src="/exemplar/img/octocat16.png" alt="Github"></noscript>
+                    </div>
+                </a>
+            </div>
+            <div class="avatar" data-picture data-alt="avatar">
+                <div data-src="{% include avatar_url %}?s=54"></div>
+                <div data-src="{% include avatar_url %}?s=108" data-media="(-webkit-min-device-pixel-ratio: 2)"></div>
+                <noscript><img src="{% include avatar_url %}?s=54" alt="avatar"></noscript>
+            </div>
+        </div>
+        <h5 class="logo"><a href="http://tybenz.com">Tyler Benziger</a></h5>
+        <nav class="main">
+            <ul>
+                {% if page.nav == "blog" %}
+                    <li><a href="http://tybenz.com" class="active">Blog</a></li>
+                {% else %}
+                    <li><a href="http://tybenz.com">Blog</a></li>
+                {% endif %}
+                {% if page.nav == "about" %}
+                <li><a href="http://tybenz.com/about" class="active">About</a></li>
+                {% else %}
+                <li><a href="http://tybenz.com/about">About</a></li>
+                {% endif %}
+                {% if page.nav == "projects" %}
+                <li><a href="http://tybenz.com/projects" class="active">Projects</a></li>
+                {% else %}
+                <li><a href="http://tybenz.com/projects">Projects</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="nav-slider">
+            <div class="nav-selection {{ page.nav }}"></div>
+        </div>
+        <div class="subnav-slider">
+            <div class="subnav-selection {{ page.subnav }}"></div>
+        </div>
+        <nav class="subnav">
+            <ul>
+                {% if page.subnav == "exemplar-home" %}
+                  <li><a href="/exemplar" class="active" data-subnav="exemplar-home">Home</a></li>
+                {% else %}
+                    <li><a href="/exemplar" data-subnav="exemplar-home">Home</a></li>
+                {% endif %}
+                {% if page.subnav == "exemplar-docs" %}
+                    <li><a href="/exemplar/docs" class="active" data-subnav="exemplar-docs">Docs</a></li>
+                {% else %}
+                    <li><a href="/exemplar/docs" data-subnav="exemplar-docs">Docs</a></li>
+                {% endif %}
+                {% if page.subnav == "download" %}
+                    <li><a href="https://github.com/tybenz/exemplar/archive/master.zip" class="active" data-subnav="download">Download</a></li>
+                {% else %}
+                    <li><a href="https://github.com/tybenz/exemplar/archive/master.zip" data-subnav="download">Download</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
 </header>
