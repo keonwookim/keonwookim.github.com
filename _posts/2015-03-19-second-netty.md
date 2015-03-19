@@ -21,7 +21,7 @@ title: "2015/03/19 장애 전파 프로그램이 장애가 있어요! "
 **가장 큰 원인은 내 미숙함이었다.**
 
 자세하게 얘기하자면, 리퀘스트가 들어올때마다 **HTTP content를 저장하는 StringBuilder 객체가 초기화 되지 않은것이 이유**였다. 초기화 안했던것은 아니었다. 다만 호출이 되지 않았을뿐... 소스코드를 보면서 좀더 자세하게 들여다보자.
-```java
+{% highlight java %}
 @Override protected void channelRead0(ChannelHandlerContext ctx, Object msg) {
 
         if (msg instanceof HttpRequest) {
@@ -60,13 +60,13 @@ title: "2015/03/19 장애 전파 프로그램이 장애가 있어요! "
         }
     }
 
-```
+{% highlight %}
 
 파이썬 스크립트로부터 HTTP 리퀘스트를 받으면 해당 메소드로 진입하게 된다. 문제의 부분을 보자. 분명히 멤버 변수인 buf (StringBuilder)를 초기화 해주고 있다. 그러나 실제 동작은 예전데이터가 망령처럼 나타나서 장애 메시지 및 메일로 전송되고 있었다! Netty 프레임워크의 example code 에서는 분명 저 위치였는데 동작했었다!! buf.setLength(0) 의 위치를 바꿔보라는 아미고의 말에 수긍하기 어려웠지만 옮겼다. 그랬더니 되는것이 아닌가! 눈으로는 목격했지만 머리로는 이해가 되지 않았다. 그래서 좀더 살펴보기로 했다.
 
 좀더 깊숙히 들어가서 상황 설명을 하자면, 나는 URL 라우팅을 하고싶었다. 해당 서버 IP로 아무렇게나 리퀘스트를 날려도 수행되게 할수는 없으니까... 방법을 잘 몰랐기에 구글에 문의했다. 고맙게도 누군가 만들어 놓은 라이브러리가 있었다. 이름은 [netty-router](http://github.com/sinetja/netty-router). 내가 직접 짜는거보다 훨씬 깔끔하게 이용할 수 있을것 같았다. 그래서 이용했는데 **이게 해당 버그의 원인이었다!**
 
-```java
+{% highlight java %}
 public class TtsNotificationInitializer extends ChannelInitializer<SocketChannel> {
 
     private static final Router router = new Router()
@@ -93,11 +93,11 @@ public class TtsNotificationInitializer extends ChannelInitializer<SocketChannel
         //p.addLast(new TtsNotificationServerHandler()); 			//before
     }
 }
-```
+{% highlight %}
 
 서버를 초기화 해주는 클래스이다. 이전 소스코드는 before, netty-router를 이용하면서 고친 소스코드는 after로 표기했다. Router와 Handler를 위와 같이 생성해서 ChannelPipeline 에 추가해주면 간단하게 완성된다. 이렇게 함으로써 서버는 **sendnoti로 POST요청 들어올 때만 서비스**를 해주게 된다. 여기까진 좋았다. 위에 보았던 소스코드 일부분을 다시보자.
 
-```java
+{% highlight java %}
 @Override protected void channelRead0(ChannelHandlerContext ctx, Object msg) {
 
         if (msg instanceof HttpRequest) {
@@ -107,7 +107,7 @@ public class TtsNotificationInitializer extends ChannelInitializer<SocketChannel
             }
             buf.setLength(0);					//문제의 부분
         }
-```
+{% highlight %}
 
 다시 문제의 부분이다. buf.setLength(0) 가 수행되지 않은 이유를 설명하겠다. netty-router를 이용하기 전에는, 요청이 들어오면 **msg가 HttpRequest의 구현체(DefaultHttpRequest)** 로 넘어온다. 때문에 **(msg instanceof HttpRequest)** 가 참이 되고, if 블록 안의 코드가 수행된다. 하지만, netty-router를 이용하면 **msg가 Routed 라는 객체 타입**으로 넘어오게된다. 때문에 **(msg instanceof HttpRequest)** 가 거짓이 된다. 결과적으로 if 블록은 수행되지 않게되고, 이로인해 잘못된 동작을 하고 있었다.
 
