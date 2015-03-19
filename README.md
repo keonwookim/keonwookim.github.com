@@ -1,32 +1,37 @@
-#Exemplar
+# Simply Grey
+Simply Grey is a nice, easy on the eyes Jekyll theme that makes great use of grey colours. 
 
-This is my jekyll site template. Used for blog and project pages.
+![Screenshot of Simply Grey](http://i.imgur.com/sKpj8Oz.png)
 
-#Getting Started
+## Installation
+There are a few requirements to using and installing the Simply Grey theme.
 
-First, make sure you have the `jekyll` and `sass` gems installed. In your terminal run:
+1. You must have Jekyll installed. If you have no done this, do it by executing the following code. 
+`gem install jekyll`
 
-    gem install jekyll
-    gem install sass
+2. You must have git installed. If you do not have this, install it on your system by using your package manager. For example, in Debian, type 
+`sudo apt-get install git`
 
-You can optionally install the *bourbon* gem in order to update the Bourbon folder:
+Once you have done this, installation is pretty easy.
 
-    gem install bourbon
-    cd _sass
-    bourbon install
+Simply clone the repository
 
-Start running Jekyll (defaults to port 4000) and watching Sass:
+`git clone https://github.com/mondss/simplygrey-jekyll.git`
 
-    rake // 'rake watch' also works
+and serve the blog up so people can see it
 
-Before deploying your site, stop `rake watch` and run `rake generate` to generate a production-ready site (no Scss comments).
+`cd simplygrey-jekyll; jekyll serve`
 
-## Updating Bourbon
+## Configuring SimplyGrey
+The SimplyGrey theme is actually very easy to configure.
 
-In order to update the Bourbon folder:
+### Adding more links to the navigation bar
+1. Open the _config.yml file
+2. Add some more values to the urls hash like the others that already exist there.
 
-    cd _sass/
-    bourbon update
-    
+### Changing the site name
+1. Open the _config.yml file
+2. Change the site name
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/tybenz/exemplar/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+### Changing the logo/picture image
+1. Drop a 75x75 image into the img directory.

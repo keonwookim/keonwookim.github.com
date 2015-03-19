@@ -1,4 +1,10 @@
+name: Simply Grey
+markdown: redcarpet
 pygments: true
-permalink: /_posts/:title
-exclude: ['Gemfile','Gemfile.lock','Rakefile','.git']
-paginate: 4
+github: https://www.github.com/exaem
+about: I am an independent developer from the sunny UK. I dabble in Ruby, play in C and I'm an avid systems administrator.
+urls:
+    - text: github
+      url: https://github.com/exaem
+    - text: email
+      url: mailto:exaem@exaem.co.uk
