@@ -20,7 +20,7 @@ title: "2015/03/19 장애 전파 프로그램이 장애가 있어요! "
 
 **가장 큰 원인은 내 미숙함이었다.**
 
-자세하게 얘기하자면, 리퀘스트가 들어올때마다 **HTTP content를 저장하는 StringBuilder 객체가 초기화 되지 않은것이 이유**였다. 초기화 안했던것은 아니었다. 다만 호출이 되지 않았을뿐... 소스코드를 보면서 좀더 자세하게 들여다보자.
+자세하게 얘기하자면, 리퀘스트가 들어올때마다 **HTTP content를 저장하는 StringBuilder 객체가 초기화 되지 않은것이 이유**였다. 그래서 리퀘스트가 들어올때마다 HTTP content의 내용들이 차곡차곡 쌓이고 있는 상황이었던 것이다. 초기화 안했던것은 아니었다. 다만 호출이 되지 않았을뿐... HTTP content의 내용이 json이라서 json string을 읽어올때 맨 앞의 완전한 블록 하나만 파싱했기 때문에 계속 맨앞의 메시지가 전송되고 있었던것이라 생각된다.소스코드를 보면서 좀더 자세하게 들여다보자.
 {% highlight java %}
 @Override protected void channelRead0(ChannelHandlerContext ctx, Object msg) {
 
