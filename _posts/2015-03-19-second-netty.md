@@ -22,6 +22,7 @@ title: "2015/03/19 장애 전파 프로그램이 장애가 있어요! "
 
 자세하게 얘기하자면, 리퀘스트가 들어올때마다 **HTTP content를 저장하는 StringBuilder 객체가 초기화 되지 않은것이 이유**였다. 그래서 리퀘스트가 들어올때마다 HTTP content의 내용들이 차곡차곡 쌓이고 있는 상황이었던 것이다. 초기화 안했던것은 아니었다. 다만 호출이 되지 않았을뿐... HTTP content의 내용이 json이라서 json string을 읽어올때 맨 앞의 완전한 블록 하나만 파싱했기 때문에 계속 맨앞의 메시지가 전송되고 있었던것이라 생각된다.소스코드를 보면서 좀더 자세하게 들여다보자.
 {% highlight java %}
+
 @Override protected void channelRead0(ChannelHandlerContext ctx, Object msg) {
 
         if (msg instanceof HttpRequest) {
@@ -112,6 +113,6 @@ public class TtsNotificationInitializer extends ChannelInitializer<SocketChannel
 다시 문제의 부분이다. buf.setLength(0) 가 수행되지 않은 이유를 설명하겠다. netty-router를 이용하기 전에는, 요청이 들어오면 **msg가 HttpRequest의 구현체(DefaultHttpRequest)** 로 넘어온다. 때문에 **(msg instanceof HttpRequest)** 가 참이 되고, if 블록 안의 코드가 수행된다. 하지만, netty-router를 이용하면 **msg가 Routed 라는 객체 타입**으로 넘어오게된다. 때문에 **(msg instanceof HttpRequest)** 가 거짓이 된다. 결과적으로 if 블록은 수행되지 않게되고, 이로인해 잘못된 동작을 하고 있었다.
 
 ## 맺으며
-최대한 편하게 작성하려했지만 그때는 좀 기분이 그랬다. 장애 알림 서버가 장애라니! 이번에 깨달은건, "역시 제대로 알고 써야겠구나." 와 "테스트 할 때 제대로 해야되는구나." 두가지이다. 테스트 할때 잘 잡아내기만 했어도 이렇지는 않았을 것이다. 
+최대한 편하게 작성하려했지만 그때는 좀 기분이 그랬다. 장애 알림 서버가 장애라니! 이번에 깨달은건, "역시 제대로 알고 써야겠구나." 와 "테스트 할 때 제대로 해야되는구나." 두가지이다. 테스트 할때 잘 잡아내기만 했어도 이렇지는 않았을 것이다.
 
 
