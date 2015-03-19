@@ -21,7 +21,7 @@ title: "2015/03/19 장애 전파 프로그램이 장애가 있어요! "
 **가장 큰 원인은 내 미숙함이었다.**
 
 자세하게 얘기하자면, 리퀘스트가 들어올때마다 **HTTP content를 저장하는 StringBuilder 객체가 초기화 되지 않은것이 이유**였다. 초기화 안했던것은 아니었다. 다만 호출이 되지 않았을뿐... 소스코드를 보면서 좀더 자세하게 들여다보자.
-```
+```java
 @Override protected void channelRead0(ChannelHandlerContext ctx, Object msg) {
 
         if (msg instanceof HttpRequest) {
@@ -66,7 +66,7 @@ title: "2015/03/19 장애 전파 프로그램이 장애가 있어요! "
 
 좀더 깊숙히 들어가서 상황 설명을 하자면, 나는 URL 라우팅을 하고싶었다. 해당 서버 IP로 아무렇게나 리퀘스트를 날려도 수행되게 할수는 없으니까... 방법을 잘 몰랐기에 구글에 문의했다. 고맙게도 누군가 만들어 놓은 라이브러리가 있었다. 이름은 [netty-router](http://github.com/sinetja/netty-router). 내가 직접 짜는거보다 훨씬 깔끔하게 이용할 수 있을것 같았다. 그래서 이용했는데 **이게 해당 버그의 원인이었다!**
 
-```
+```java
 public class TtsNotificationInitializer extends ChannelInitializer<SocketChannel> {
 
     private static final Router router = new Router()
@@ -97,7 +97,7 @@ public class TtsNotificationInitializer extends ChannelInitializer<SocketChannel
 
 서버를 초기화 해주는 클래스이다. 이전 소스코드는 before, netty-router를 이용하면서 고친 소스코드는 after로 표기했다. Router와 Handler를 위와 같이 생성해서 ChannelPipeline 에 추가해주면 간단하게 완성된다. 이렇게 함으로써 서버는 **sendnoti로 POST요청 들어올 때만 서비스**를 해주게 된다. 여기까진 좋았다. 위에 보았던 소스코드 일부분을 다시보자.
 
-```
+```java
 @Override protected void channelRead0(ChannelHandlerContext ctx, Object msg) {
 
         if (msg instanceof HttpRequest) {
