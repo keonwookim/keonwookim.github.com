@@ -1,6 +1,6 @@
-title: "blog title"
-author: "Blog Author"
-description: "Really cool blog about ... something"
+title: "KKW's Tech Blog"
+author: "Keonwoo Kim:w"
+description: "Tech Blog"
 #subheading: "Really cool blog about ... something"
 more: "read more"
 url: "http://niklabs.me"
@@ -23,12 +23,7 @@ style:
         even: "#222222"
 
 links:
-  - github: "https://github.com/me/"
-  - twitter: "https://twitter.com/me/"
-  - google-plus: "https://plus.google.com/+me"
-  - reddit: "https://www.reddit.com/user/me/"
-  - youtube: "https://www.youtube.com/user/me"
-  - steam: "http://steamcommunity.com/id/me/"
+  - github: "https://github.com/keonwookim"
 
 excerpt_separator: "\n\n\n"
 defaults: [{scope: {path: ""}, values: {layout: "default"}}, {scope: {path: "", type: "posts"}, values: {comments: true}}]
