@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Javascript template binding data"
+title: "jQuery template binding data"
 ---
 ## 데이터 바인딩이 안되요. - jQuery template
 
