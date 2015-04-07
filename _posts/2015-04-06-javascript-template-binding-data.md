@@ -2,7 +2,7 @@
 layout: post
 title: "jQuery template binding data"
 ---
-## 데이터 바인딩이 안되요. - jQuery template
+## 데이터 바인딩이 안돼요. - jQuery template
 
 ### 들어가기전에
 
