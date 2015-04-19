@@ -27,7 +27,7 @@ sbt는 컨셉 자체가 심플한듯하다. 부가적으로 여타 다른 빌드
 ##### 프로젝트 디렉토리 구조
 프로젝트의 소스 디렉토리 구조는 다음과 같다.
 
-![디렉토리 구조]({{ D:\PortableJekyll\keonwookim.github.com\assets\project_structure.jpg }}/assets/project_structure.jpg)
+![디렉토리 구조]({{ E:\github_blog\keonwookim.github.com\assets\project_structure.jpg }}/assets/project_structure.jpg)
 
 기본적으로 Maven과 같은 디렉토리 구조를 사용하고 있다.
 
