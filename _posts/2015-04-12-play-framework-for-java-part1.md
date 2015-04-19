@@ -78,7 +78,7 @@ resolvers += 저장소 위치
 {% endhighlight %}
 
 ## Reference
-Play Framework - https://www.playframework.com
-SBT - http://www.scala-sbt.org/
+* Play Framework - https://www.playframework.com
+* SBT - http://www.scala-sbt.org/
 
 
