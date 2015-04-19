@@ -20,14 +20,25 @@ Play Framework는 JAVA의 경량 웹 애플리케이션 프레임워크이다. P
 
 ## SBT
 SBT는 Scala 기반의 빌드 도구이다. 많이 사용되고 있는 maven을 생각하면 쉬울것이다. 공식사이트의 설명을 보자. 다음과 같이 설명하고 있다.
+
 > sbt uses a small number of concepts to support flexible and powerful build definitions.
 
 sbt는 컨셉 자체가 심플한듯하다. 부가적으로 여타 다른 빌드 도구들 (문서를 읽지 않고서는 사용하기 힘든) 보다 간단한 사용성을 강조하고 있다.
 
-##### 프로젝트 디렉토리 구조
+### 프로젝트 디렉토리 구조
+
 프로젝트의 소스 디렉토리 구조는 다음과 같다.
 
-![디렉토리 구조]({{ E:\github_blog\keonwookim.github.com\assets\project_structure.jpg }}/assets/project_structure.jpg)
+    src/
+       main/
+           resources/
+           scala/
+           java/
+       test/
+           resources/
+           scala/
+           java/
+
 
 기본적으로 Maven과 같은 디렉토리 구조를 사용하고 있다.
 
@@ -35,7 +46,7 @@ build.sbt 파일에는 빌드 정의가 저장되어 있으며, 프로젝트의 
 
 빌드의 결과물들(컴파일된 클래스들, jar파일, documentation등)은 /target 디렉토리 내에 위치하게 된다.
 
-##### 주요 명령어
+### 주요 명령어
 * clean - target 디렉토리 내의 생성된 파일들을 모두 지운다.
 * compile - 메인 소스를 컴파일한다. (src/main/scala, src/main/java)
 * test - 컴파일하고 모든 테스트를 실행한다.
@@ -45,7 +56,7 @@ build.sbt 파일에는 빌드 정의가 저장되어 있으며, 프로젝트의 
 * help - 해당 커멘드 사용법을 보여준다.
 * reload - 빌드 정의를 reload 한다.
 
-##### SBT in Play Framework
+### SBT in Play Framework
 위에서 언급했던 것처럼 Play Framework에서는 SBT를 빌드툴로 이용하고 있다. Dependency 관리는 Apache Ivy를 이용한다. 좀더 정확하게 이야기하자면 SBT를 통해서 이루어지고 있다. Dependency는 build.sbt 파일에 정의해서 관리할수 있다. 문법은 다음과 같다.
 
 {% highlight scala %}
