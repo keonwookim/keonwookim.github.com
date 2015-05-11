@@ -37,3 +37,6 @@ $CATALINA_HOME/bin/startup.sh, $CATALINA_HOME/bin/shutdown.sh 파일을 수정�
 위의 명령어를 실행하면 톰캣 인스턴스가 실행되며. logs디렉토리의 catalina.out 파일을 tail -f catalina.out 출력시켜서 잘 실행이 되는지 로그를 확인한다.
 
 실행이 필요한 인스턴스들이 더 있다면 인스턴스 디렉토리(~/instance/) 밑에 생성해주고 위의 내용을 수행하면된다.
+
+#Reference
+* Running Multiple Tomcat Instances on Single Machine - http://www.ramkitech.com/2011/07/running-multiple-tomcat-instances-on.html
