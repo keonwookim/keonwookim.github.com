@@ -52,5 +52,7 @@ Map<String, List<String>> m = HashMap.newInstance();
 {% endhighlight %}
 
 static factory method는 다음과 같은 단점을 가진다고 한다.
+
+
 * 인스턴스 생성을 위해 static factory method만 갖고 있으면서 public이나 protected 생성자가 없는 클래스는 서브클래스를 가질 수 없다.
 * 다른 static 메소드랑 구별하기가 쉽지 않다.
