@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "2017/11/29 RabbitMQ 설치 & 설정"
+title: "2017/11/29 RabbitMQ 설치와 실행"
 ---
 
 # RabbitMQ
@@ -24,11 +24,29 @@ RabbitMQ can be deployed in distributed and federated configurations to meet hig
 sudo yum intall erlang
 ```
 
+만약 설치가 안된다면 /etc/yum.repos.d/Centos_Base.repo 파일에 yum repository 을 등록한다.
+다음의 내용을 추가해준다.
+```
+[erlang-solutions]
+name=Centos $releasever - $basearch - Erlang Solutions
+baseurl=https://packages.erlang-solutions.com/rpm/centos/$releasever/$basearch
+gpgcheck=1
+gpgkey=https://packages.erlang-solutions.com/rpm/erlang_solutions.asc
+enabled=1
+```
+
 ## RabbitMQ 설치
 ```
 sudo rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
 sudo yum install rabbitmq-server-3.6.14-1.noarch.rpm
 ```
+
+만약 socat이 없다고 나오고 설치가 안된다면, socat을 설치한다.
+```
+wget http://dl.fedoraproject.org/pub/epel/6/x86_64/Packages/s/socat-1.7.2.3-1.el6.x86_64.rpm
+sodu yum install socat-1.7.2.3-1.el6.x86_64.rpm
+```
+socat 을 설치하고 다시 rabbitmq 를 설치한다.
 
 ## RabbitMQ 실행하기
 ```
@@ -44,10 +62,3 @@ rabbitmqctl stop
 ```
 rabbitmqctl status
 ```
-
-# Clustering
-## 얼랭 쿠키값 맞추기
-RabbitMQ 에서는 각 노드들이 서로 통신을 하기위해서 erlang cookie 를 이용한다. 각 노드들은 erlang cookie를 공유해야한다. 
-클러스터로 묶을 노드틀은 모두 같은 erlang cookie 값을 같은 값으로 맞춰줘야 한다. /var/lib/rabbitmq/.erlang.cookie 파일에 저장되어 있으며, 이 쿠키값을 복사해서 다른 노드에도 동일하게 저장한다.
-
-
