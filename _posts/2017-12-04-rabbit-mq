@@ -1,0 +1,64 @@
+---
+layout: post
+title: "2017/11/29 RabbitMQ 설치와 실행"
+---
+
+# RabbitMQ
+
+RabbitMQ 는 널리 이용되고 있는 메시지 큐 이다. AMQP (Advanced Message Queuing Protocol) 를 구현한 것중 하나이다. RabbitMQ 의 공식 홈페이지에서는 다음과 같이 설명하고 있다.
+
+```
+RabbitMQ is lightweight and easy to deploy on premises and in the cloud. It supports multiple messaging protocols. 
+RabbitMQ can be deployed in distributed and federated configurations to meet high-scale, high-availability requirements.
+```
+
+* 경량
+* 다양한 메시지 프로토콜 지원
+* 분산시켜 배포함으로서 대규모, 고가용성 충족
+
+정도의 특징이 있겠다. 이번 포스트에서는 RabbitMQ를 세팅하는 방법에 대해 알아보도록 하자.
+
+# RabbitMQ 설치하기
+## Erlang 설치
+```
+sudo yum intall erlang
+```
+
+만약 설치가 안된다면 /etc/yum.repos.d/Centos_Base.repo 파일에 yum repository 을 등록한다.
+다음의 내용을 추가해준다.
+```
+[erlang-solutions]
+name=Centos $releasever - $basearch - Erlang Solutions
+baseurl=https://packages.erlang-solutions.com/rpm/centos/$releasever/$basearch
+gpgcheck=1
+gpgkey=https://packages.erlang-solutions.com/rpm/erlang_solutions.asc
+enabled=1
+```
+
+## RabbitMQ 설치
+```
+sudo rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
+sudo yum install rabbitmq-server-3.6.14-1.noarch.rpm
+```
+
+만약 socat이 없다고 나오고 설치가 안된다면, socat을 설치한다.
+```
+wget http://dl.fedoraproject.org/pub/epel/6/x86_64/Packages/s/socat-1.7.2.3-1.el6.x86_64.rpm
+sodu yum install socat-1.7.2.3-1.el6.x86_64.rpm
+```
+socat 을 설치하고 다시 rabbitmq 를 설치한다.
+
+## RabbitMQ 실행하기
+```
+rabbitmq-server -detached
+```
+
+## RabbitMQ 중지하기
+```
+rabbitmqctl stop
+```
+
+## RabbitMQ 상태보기
+```
+rabbitmqctl status
+```
